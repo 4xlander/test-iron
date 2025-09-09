@@ -76,6 +76,8 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
 
     private BuildingItem CreateBase(Transform spawnPoint)
     {
-        return Instantiate(basePrefab, spawnPoint.position, Quaternion.identity);
+        var baseInstance = Instantiate(basePrefab, spawnPoint.position, Quaternion.identity);
+        baseInstance.Init(buildingConfig);
+        return baseInstance;
     }
 }
