@@ -1,3 +1,4 @@
+using config;
 using UnityEngine;
 
 public class BuildingItem : MonoBehaviour
@@ -5,7 +6,10 @@ public class BuildingItem : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer hpBarSprite;
     public Collider2D collider;
-    public Health health; 
-    
-    
+    public Health health;
+
+    public void Init(BuildingConfig config)
+    {
+        health.Init(config.maxHp);
+    }
 }

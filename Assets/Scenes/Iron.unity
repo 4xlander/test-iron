@@ -4965,6 +4965,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePrefab: {fileID: 6154316263350739593, guid: e783256e96fe5d944b8edb71e55a43bd, type: 3}
   unitPrefab: {fileID: 2878550635702778940, guid: cdade879c750a804d936aa2dbb830331, type: 3}
+  buildingConfig: {fileID: 11400000, guid: 1e1e72145c88d0d49aae2cca38849111, type: 2}
+  unitConfigs:
+  - {fileID: 11400000, guid: 5e4c28467ca0b0c4fae2a2cf8b107fc6, type: 2}
+  - {fileID: 11400000, guid: 29185ffd9ae1d6a47b2a34fd7af71f1d, type: 2}
+  - {fileID: 11400000, guid: 1767fd33d12f379478e6829102c014d3, type: 2}
   baseSpawnPoint: {fileID: 2103766567}
   leftEdgePoint: {fileID: 2121971446}
   leftNearBasePoint: {fileID: 1705764883}

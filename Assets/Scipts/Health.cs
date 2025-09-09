@@ -11,7 +11,8 @@ public class Health : MonoBehaviour
     
     public void Init(int maxHP)
     {
-        
+        HP = maxHP;
+        MaxHP = maxHP;
     }
 
     public void DoDamage(int damage)

@@ -1,3 +1,4 @@
+using config;
 using UnityEngine;
 
 public class SpawnManager : GenericSingletonClass<SpawnManager>
@@ -8,6 +9,10 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
     [Header("Prefabs")]
     [SerializeField] private BuildingItem basePrefab;
     [SerializeField] private UnitItem unitPrefab;
+
+    [Header("Configs")]
+    [SerializeField] private BuildingConfig buildingConfig;
+    [SerializeField] private UnitConfig[] unitConfigs;
 
     [Header("Spawn Points")]
     [SerializeField] private Transform baseSpawnPoint;
@@ -31,7 +36,7 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
 
     private UnitItem CreatePlayerUnit(Transform spawnPoint)
     {
-        var unit = Instantiate(unitPrefab, spawnPoint.position, Quaternion.identity);
+        var unit = CreateUnit(spawnPoint);
 
         var dirToBase = GetDirToBase(unit.transform);
         if (dirToBase.x < 0)
@@ -42,13 +47,20 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
 
     private UnitItem CreateEnemyUnit(Transform spawnPoint)
     {
-        var unit = Instantiate(unitPrefab, spawnPoint.position, Quaternion.identity);
+        var unit = CreateUnit(spawnPoint);
         unit.spriteRenderer.color = Color.red;
 
         var dirToBase = GetDirToBase(unit.transform);
         if (dirToBase.x > 0)
             FlipUnit(unit);
 
+        return unit;
+    }
+
+    private UnitItem CreateUnit(Transform spawnPoint)
+    {
+        var unit = Instantiate(unitPrefab, spawnPoint.position, Quaternion.identity);
+        unit.Init(unitConfigs[0]);
         return unit;
     }
 
