@@ -2357,6 +2357,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74990f683720dd945b2fb1d7077e2356, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPlayerUnitLeftBtn: {fileID: 1459744552}
+  spawnPlayerUnitRightBtn: {fileID: 267351257}
+  spawnEnemyUnitLeftBtn: {fileID: 1437590647}
+  spawnEnemyUnitRightBtn: {fileID: 919376023}
 --- !u!1 &763875814
 GameObject:
   m_ObjectHideFlags: 0
