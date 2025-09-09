@@ -18,25 +18,10 @@ public class SpawnManagerUi : MonoBehaviour
         RemoveListeners();
     }
 
-    private void OnSpawnPlayerUnitLeftClick()
-    {
-        Debug.Log("Spawn Player Left");
-    }
-
-    private void OnSpawnPlayerUnitRightClick()
-    {
-        Debug.Log("Spawn Player Right");
-    }
-
-    private void OnSpawnEnemyUnitLeftClick()
-    {
-        Debug.Log("Spawn Enemy Left");
-    }
-
-    private void OnSpawnEnemyUnitRightClick()
-    {
-        Debug.Log("Spawn Enemy Right");
-    }
+    private void OnSpawnPlayerUnitLeftClick() => SpawnManager.Instance.SpawnPlayerLeft();
+    private void OnSpawnPlayerUnitRightClick() => SpawnManager.Instance.SpawnPlayerRight();
+    private void OnSpawnEnemyUnitLeftClick() => SpawnManager.Instance.SpawnEnemyLeft();
+    private void OnSpawnEnemyUnitRightClick() => SpawnManager.Instance.SpawnEnemyRight();
 
     private void AddListeners()
     {
