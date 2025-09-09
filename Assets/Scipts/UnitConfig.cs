@@ -20,6 +20,7 @@ public class UnitConfig : ScriptableObject
     public float ammoCount;
     public float rateFire;
     public float reload;
-    
+    public BulletItem bulletPrefab;
+
     public string spawnMessageUnit;
 }

@@ -2930,7 +2930,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -254.4021, y: -268.9796}
+  m_AnchoredPosition: {x: -254.40234, y: -268.9796}
   m_SizeDelta: {x: 381.19543, y: 94.04059}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &919376023
@@ -4349,7 +4349,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -254.4021, y: -151.97961}
+  m_AnchoredPosition: {x: -254.40234, y: -151.97961}
   m_SizeDelta: {x: 381.19543, y: 94.04059}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1437590647
@@ -4975,6 +4975,8 @@ MonoBehaviour:
   leftNearBasePoint: {fileID: 1705764883}
   rightNearBasePoint: {fileID: 225845906}
   rightEdgePoint: {fileID: 355914339}
+  playerUnitLayer: PlayerUnit
+  enemyUnitLayer: EnemyUnit
 --- !u!4 &1598077824
 Transform:
   m_ObjectHideFlags: 0

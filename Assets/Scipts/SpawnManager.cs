@@ -21,12 +21,19 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
     [SerializeField] private Transform rightNearBasePoint;
     [SerializeField] private Transform rightEdgePoint;
 
+    [Header("Layers")]
+    [SerializeField] private string playerUnitLayer;
+    [SerializeField] private string enemyUnitLayer;
+
     private BuildingItem _baseInstance;
 
     private void Start()
     {
         if (_baseInstance == null)
+        {
             _baseInstance = CreateBase(baseSpawnPoint);
+            _baseInstance.gameObject.layer = LayerMask.NameToLayer(playerUnitLayer);
+        }
     }
 
     public void SpawnPlayerLeft() => CreatePlayerUnit(leftNearBasePoint);
@@ -34,44 +41,47 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
     public void SpawnEnemyLeft() => CreateEnemyUnit(leftEdgePoint);
     public void SpawnEnemyRight() => CreateEnemyUnit(rightEdgePoint);
 
-    private UnitItem CreatePlayerUnit(Transform spawnPoint)
+    private void CreatePlayerUnit(Transform spawnPoint)
     {
-        var unit = CreateUnit(spawnPoint);
-
-        var dirToBase = GetDirToBase(unit.transform);
-        if (dirToBase.x < 0)
-            FlipUnit(unit);
-
-        return unit;
+        var unit = CreateUnit(spawnPoint, Faction.Player);
+        unit.gameObject.layer = LayerMask.NameToLayer(playerUnitLayer);
     }
 
-    private UnitItem CreateEnemyUnit(Transform spawnPoint)
+    private void CreateEnemyUnit(Transform spawnPoint)
     {
-        var unit = CreateUnit(spawnPoint);
+        var unit = CreateUnit(spawnPoint, Faction.Enemy);
+        unit.gameObject.layer = LayerMask.NameToLayer(enemyUnitLayer);
         unit.spriteRenderer.color = Color.red;
-
-        var dirToBase = GetDirToBase(unit.transform);
-        if (dirToBase.x > 0)
-            FlipUnit(unit);
-
-        return unit;
     }
 
-    private UnitItem CreateUnit(Transform spawnPoint)
+    private UnitItem CreateUnit(Transform spawnPoint, Faction faction)
     {
         var unit = Instantiate(unitPrefab, spawnPoint.position, Quaternion.identity);
-        unit.Init(unitConfigs[0]);
+        unit.rb.freezeRotation = true;
+
+        var dirToBase = GetDirToBase(unit.transform);
+        var lookDir = faction == Faction.Player ? -dirToBase : dirToBase;
+        unit.SetLookDirection(lookDir);
+
+        var unitConfig = unitConfigs[0];
+        unit.Init(unitConfig, faction);
+        unit.OnUnitDie += HandleUnitDeath;
+
+        Debug.Log($"{unit.Faction} unit '{unitConfig.spawnMessageUnit}' spawned");
         return unit;
+    }
+
+    private void HandleUnitDeath(UnitItem unit)
+    {
+        unit.OnUnitDie -= HandleUnitDeath;
+        Debug.Log($"{unit.Faction} unit died");
     }
 
     private Vector3 GetDirToBase(Transform unitTransform)
     {
-        return (baseSpawnPoint.position - unitTransform.position).normalized;
-    }
-
-    private void FlipUnit(UnitItem unit)
-    {
-        unit.visualGO.transform.localScale = new Vector3(-1, 1, 1);
+        var dir = baseSpawnPoint.position - unitTransform.position;
+        return dir.x > 0 ? Vector3.right : Vector3.left;
+        ;
     }
 
     private BuildingItem CreateBase(Transform spawnPoint)
