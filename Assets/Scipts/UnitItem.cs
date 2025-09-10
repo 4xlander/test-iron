@@ -125,6 +125,9 @@ public class UnitItem : MonoBehaviour
         if (_currentTarget == null)
             return;
 
+        if (_currentTarget.TryGetComponent(out Health targetHealth) && targetHealth.HP <= 0)
+            return;
+
         _fireDelayTimer = 1f / _config.rateFire;
 
         var bullet = Instantiate(_config.bulletPrefab, firePoint.position, Quaternion.identity);

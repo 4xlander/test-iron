@@ -1,11 +1,11 @@
+using System;
 using config;
 using UnityEngine;
 
 public class SpawnManager : GenericSingletonClass<SpawnManager>
 {
-    //тут сделать весь контроль
-    //  спаун юнитов через кнопки юай, врагов и своих и их инит
-    // спаун базы ровно по центру. в координатах по Х 0
+    public event Action OnBaseDestroyed;
+
     [Header("Prefabs")]
     [SerializeField] private BuildingItem basePrefab;
     [SerializeField] private UnitItem unitPrefab;
@@ -33,7 +33,14 @@ public class SpawnManager : GenericSingletonClass<SpawnManager>
         {
             _baseInstance = CreateBase(baseSpawnPoint);
             _baseInstance.gameObject.layer = LayerMask.NameToLayer(playerUnitLayer);
+            _baseInstance.health.OnDie += OnBaseDestroyed;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (_baseInstance != null)
+            _baseInstance.health.OnDie -= OnBaseDestroyed;
     }
 
     public void SpawnPlayerLeft() => CreatePlayerUnit(leftNearBasePoint);
